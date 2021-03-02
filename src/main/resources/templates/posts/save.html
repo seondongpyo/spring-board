@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to Spring Board Project</title>
+</head>
+<body>
+    <h2>Write a new post</h2>
+    <br>
+
+    <form>
+        <div>
+            <label for="writer">작성자</label>
+            <input type="text" id="writer">
+        </div>
+        <div>
+            <label for="title">제목</label>
+            <input type="text" id="title">
+        </div>
+        <div>
+            <label for="content">내용</label>
+            <input type="text" id="content">
+        </div>
+    </form>
+    <button id="save">저장</button>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $('#save').click(function () {
+        var data = {
+            title: $('#title').val(),
+            content: $('#content').val(),
+            writer: $('#writer').val()
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/posts',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(() => {
+            alert('게시물이 등록되었습니다.');
+            location.href = '/posts';
+        }).fail((error) => {
+            alert(JSON.stringify(error));
+        });
+    });
+</script>
+</html>

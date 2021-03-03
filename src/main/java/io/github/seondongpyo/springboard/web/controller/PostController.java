@@ -32,6 +32,15 @@ public class PostController {
         return "/posts/save";
     }
 
+    @GetMapping("/{id}")
+    public String detailPage(@PathVariable Long id,
+                             Model model) {
+        PostResponseDto post = postService.findById(id);
+        model.addAttribute("post", post);
+
+        return "/posts/detail";
+    }
+
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody PostSaveRequestDto dto) {
         postService.save(dto);

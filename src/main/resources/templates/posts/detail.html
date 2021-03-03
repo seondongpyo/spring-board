@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to Spring Board Project</title>
+</head>
+<body>
+    <h2>게시물 상세 페이지</h2>
+    <a href="/posts" role="button">목록</a>
+    <br>
+    <table>
+        <tbody>
+            <tr>
+                <td>번호</td>
+                <td th:text="${post.id}"></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td th:text="${post.title}"></td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td th:text="${post.writer}"></td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td th:text="${post.content}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -8,22 +8,26 @@
     <title>Welcome to Spring Board Project</title>
 </head>
 <body>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>제목</th>
-            <th>작성자</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="post : ${posts}">
-            <td th:text="${post.id}"></td>
-            <td th:text="${post.title}"></td>
-            <td th:text="${post.writer}"></td>
-        </tr>
-    </tbody>
+    <h2>게시물 목록</h2>
     <a href="/posts/save" role="button">작성</a>
-</table>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>제목</th>
+                <th>작성자</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.id}"></td>
+                <td>
+                    <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a>
+                </td>
+                <td th:text="${post.writer}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

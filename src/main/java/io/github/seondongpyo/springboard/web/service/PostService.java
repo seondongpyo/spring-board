@@ -2,6 +2,7 @@ package io.github.seondongpyo.springboard.web.service;
 
 import io.github.seondongpyo.springboard.web.dto.PostResponseDto;
 import io.github.seondongpyo.springboard.web.dto.PostSaveRequestDto;
+import io.github.seondongpyo.springboard.web.dto.PostUpdateRequestDto;
 import io.github.seondongpyo.springboard.web.entity.Post;
 import io.github.seondongpyo.springboard.web.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +36,19 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void save(PostSaveRequestDto dto) {
         Post post = new Post(dto.getTitle(), dto.getContent(), dto.getWriter());
         postRepository.save(post);
+    }
+
+    @Transactional
+    public void update(Long id, PostUpdateRequestDto dto) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException("Cannot find a post (id : " + id + ")");
+                });
+
+        post.update(dto.getTitle(), dto.getContent());
     }
 }

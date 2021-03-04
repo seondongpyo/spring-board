@@ -2,6 +2,7 @@ package io.github.seondongpyo.springboard.web.controller;
 
 import io.github.seondongpyo.springboard.web.dto.PostResponseDto;
 import io.github.seondongpyo.springboard.web.dto.PostSaveRequestDto;
+import io.github.seondongpyo.springboard.web.dto.PostUpdateRequestDto;
 import io.github.seondongpyo.springboard.web.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,15 @@ public class PostController {
         return "/posts/save";
     }
 
+    @GetMapping("/{id}/update")
+    public String editPage(@PathVariable Long id,
+                           Model model) {
+        PostResponseDto post = postService.findById(id);
+        model.addAttribute("post", post);
+
+        return "/posts/update";
+    }
+
     @GetMapping("/{id}")
     public String detailPage(@PathVariable Long id,
                              Model model) {
@@ -46,5 +56,14 @@ public class PostController {
         postService.save(dto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,
+                                    @RequestBody PostUpdateRequestDto dto) {
+
+        postService.update(id, dto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

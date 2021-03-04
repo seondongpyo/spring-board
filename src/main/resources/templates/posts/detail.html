@@ -11,26 +11,44 @@
     <h2>게시물 상세 페이지</h2>
     <a href="/posts" role="button">목록</a>
     <a th:href="@{/posts/{id}/update(id=${post.id})}" role="button">수정</a>
+    <button id="delete">삭제</button>
     <br>
-    <table>
-        <tbody>
-            <tr>
-                <td>번호</td>
-                <td th:text="${post.id}"></td>
-            </tr>
-            <tr>
-                <td>제목</td>
-                <td th:text="${post.title}"></td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td th:text="${post.writer}"></td>
-            </tr>
-            <tr>
-                <td>내용</td>
-                <td th:text="${post.content}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <label for="id">번호</label>
+        <input type="text" id="id" th:value="${post.id}" readonly>
+    </div>
+    <div>
+        <label for="title">제목</label>
+        <input type="text" id="title" th:value="${post.title}" readonly>
+    </div>
+    <div>
+        <label for="writer">작성자</label>
+        <input type="text" id="writer" th:value="${post.writer}" readonly>
+    </div>
+    <div>
+        <label for="content">내용</label>
+        <input type="text" id="content" th:value="${post.content}" readonly>
+    </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $('#delete').click(function () {
+        if (!confirm('게시글을 삭제하시겠습니까?')) {
+            return;
+        }
+
+        var id = $('#id').val();
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/posts/' + id,
+            contentType: 'application/json; charset=utf-8',
+        }).done(() => {
+            alert('게시물이 삭제되었습니다.');
+            location.href = '/posts';
+        }).fail((error) => {
+            alert(JSON.stringify(error));
+        });
+    });
+</script>
 </html>

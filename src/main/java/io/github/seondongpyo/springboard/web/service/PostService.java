@@ -51,4 +51,14 @@ public class PostService {
 
         post.update(dto.getTitle(), dto.getContent());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException("Cannot find a post (id : " + id + ")");
+                });
+
+        postRepository.delete(post);
+    }
 }

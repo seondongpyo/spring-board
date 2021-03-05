@@ -21,9 +21,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponseDto findById(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new IllegalArgumentException("Cannot find a post (id : " + id + ")");
-                });
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find a post (id : " + id + ")"));
 
         return new PostResponseDto(post);
     }
@@ -45,9 +43,7 @@ public class PostService {
     @Transactional
     public void update(Long id, PostUpdateRequestDto dto) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new IllegalArgumentException("Cannot find a post (id : " + id + ")");
-                });
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find a post (id : " + id + ")"));
 
         post.update(dto.getTitle(), dto.getContent());
     }
@@ -55,9 +51,7 @@ public class PostService {
     @Transactional
     public void delete(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new IllegalArgumentException("Cannot find a post (id : " + id + ")");
-                });
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find a post (id : " + id + ")"));
 
         postRepository.delete(post);
     }

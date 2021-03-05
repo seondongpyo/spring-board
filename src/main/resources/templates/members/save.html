@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to Spring Board Project</title>
+</head>
+<body>
+<h2>회원 가입</h2>
+<br>
+<form>
+    <div>
+        <label for="email">이메일</label>
+        <input type="text" id="email">
+    </div>
+    <div>
+        <label for="password">비밀번호</label>
+        <input type="text" id="password">
+    </div>
+</form>
+<button id="save">가입</button>
+<a href="/members">취소</a>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $('#save').click(function () {
+        var data = {
+            email: $('#email').val(),
+            password: $('#password').val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/members',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(() => {
+            alert('회원으로 가입되셨습니다');
+            location.href = '/';
+        }).fail((error) => {
+            alert(JSON.stringify(error));
+        });
+    });
+</script>
+</html>

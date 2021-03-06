@@ -2,16 +2,15 @@ package io.github.seondongpyo.springboard.web.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 @Entity
-public class Post {
+public class Post extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;

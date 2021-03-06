@@ -23,7 +23,7 @@ public class MemberController {
         return "/members/save";
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody MemberSaveRequestDto dto) {
         memberService.save(dto);
 

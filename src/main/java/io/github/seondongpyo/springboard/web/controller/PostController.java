@@ -20,7 +20,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("")
+    @GetMapping
     public String findAll(Model model) {
         List<PostResponseDto> posts = postService.findAll();
         model.addAttribute("posts", posts);
@@ -51,7 +51,7 @@ public class PostController {
         return "/posts/detail";
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody PostSaveRequestDto dto) {
         postService.save(dto);
 

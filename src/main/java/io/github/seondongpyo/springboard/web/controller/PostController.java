@@ -52,25 +52,19 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody PostSaveRequestDto dto) {
-        postService.save(dto);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public Long save(@RequestBody PostSaveRequestDto dto) {
+        return postService.save(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,
-                                    @RequestBody PostUpdateRequestDto dto) {
+    public Long update(@PathVariable Long id,
+                       @RequestBody PostUpdateRequestDto dto) {
 
-        postService.update(id, dto);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return postService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        postService.delete(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    public Long delete(@PathVariable Long id) {
+        return postService.delete(id);
     }
 }

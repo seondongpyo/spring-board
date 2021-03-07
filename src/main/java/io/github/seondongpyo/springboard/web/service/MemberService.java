@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    @Transactional
-    public void save(MemberSaveRequestDto dto) {
+    public Long save(MemberSaveRequestDto dto) {
         Member member = new Member(dto.getEmail(), dto.getPassword());
-        memberRepository.save(member);
+
+        return memberRepository.save(member).getId();
     }
 }

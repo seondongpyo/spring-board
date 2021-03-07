@@ -24,10 +24,8 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody MemberSaveRequestDto dto) {
-        memberService.save(dto);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public Long save(@RequestBody MemberSaveRequestDto dto) {
+        return memberService.save(dto);
     }
 
 }

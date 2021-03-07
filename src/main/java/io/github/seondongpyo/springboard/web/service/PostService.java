@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class PostService {
 
@@ -34,25 +35,27 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public void save(PostSaveRequestDto dto) {
+    public Long save(PostSaveRequestDto dto) {
         Post post = new Post(dto.getTitle(), dto.getContent(), dto.getWriter());
-        postRepository.save(post);
+
+        return postRepository.save(post).getId();
     }
 
-    @Transactional
-    public void update(Long id, PostUpdateRequestDto dto) {
+    public Long update(Long id, PostUpdateRequestDto dto) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find a post (id : " + id + ")"));
 
         post.update(dto.getTitle(), dto.getContent());
+
+        return id;
     }
 
-    @Transactional
-    public void delete(Long id) {
+    public Long delete(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find a post (id : " + id + ")"));
 
         postRepository.delete(post);
+
+        return id;
     }
 }

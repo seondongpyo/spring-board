@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -22,12 +23,27 @@ class MemberRepositoryTest {
         Member member = new Member("test@gmail.com", "1234");
         Member savedMember = memberRepository.save(member);
 
-        Member foundMember = memberRepository.findById(savedMember.getId())
-                .orElseThrow(() -> new IllegalArgumentException("No member found (id = " + savedMember.getId() + ")"));
+        Member foundMember = findMemberById(savedMember.getId());
 
         assertThat(member.getId()).isEqualTo(foundMember.getId());
         assertThat(member.getEmail()).isEqualTo(foundMember.getEmail());
         assertThat(member.getPassword()).isEqualTo(foundMember.getPassword());
     }
 
+    @Test
+    @DisplayName("Delete a member")
+    void deleteMember() {
+        Member member = new Member("test@gmail.com", "1234");
+        Member savedMember = memberRepository.save(member);
+        Member foundMember = findMemberById(savedMember.getId());
+
+        memberRepository.delete(foundMember);
+
+        assertThrows(IllegalArgumentException.class, () -> findMemberById(savedMember.getId()));
+    }
+
+    Member findMemberById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No member found (id : " + id + ")"));
+    }
 }
